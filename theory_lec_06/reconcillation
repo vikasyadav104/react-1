@@ -1,0 +1,146 @@
+What is reconciliation?
+reconciliation
+The algorithm React uses to diff one tree with another to determine which parts need to be changed.
+update
+A change in the data used to render a React app. Usually the result of `setState`. Eventually results in a re-render.
+The central idea of React's API is to think of updates as if they cause the entire app to re-render. This allows the developer to reason declaratively, rather than worry about how to efficiently transition the app from any particular state to another (A to B, B to C, C to A, and so on).
+
+Actually re-rendering the entire app on each change only works for the most trivial apps; in a real-world app, it's prohibitively costly in terms of performance. React has optimizations which create the appearance of whole app re-rendering while maintaining great performance. The bulk of these optimizations are part of a process called reconciliation.
+
+Reconciliation is the algorithm behind what is popularly understood as the "virtual DOM." A high-level description goes something like this: when you render a React application, a tree of nodes that describes the app is generated and saved in memory. This tree is then flushed to the rendering environment — for example, in the case of a browser application, it's translated to a set of DOM operations. When the app is updated (usually via setState), a new tree is generated. The new tree is diffed with the previous tree to compute which operations are needed to update the rendered app.
+
+Although Fiber is a ground-up rewrite of the reconciler, the high-level algorithm described in the React docs will be largely the same. The key points are:
+
+Different component types are assumed to generate substantially different trees. React will not attempt to diff them, but rather replace the old tree completely.
+Diffing of lists is performed using keys. Keys should be "stable, predictable, and unique." explain it like i am begininet
+
+
+
+explaination
+
+Reconciliation is the process React uses to:
+
+compare old UI with new UI
+
+and update only the changed parts.
+
+Simple Example
+
+Suppose your screen shows:
+
+<h1>Count: 0</h1>
+
+Now user clicks button.
+
+State changes:
+
+setCount(1)
+
+Now React creates new UI:
+
+<h1>Count: 1</h1>
+
+React now compares:
+
+OLD:
+
+<h1>Count: 0</h1>
+
+NEW:
+
+<h1>Count: 1</h1>
+
+It notices:
+
+Only text changed
+
+So React updates only that text.
+
+This comparison process is called:
+
+Reconciliation
+
+
+//virtual dom
+
+
+
+Virtual DOM
+
+React keeps a copy of UI in memory.
+
+This copy is called:
+
+Virtual DOM
+
+Example tree:
+
+App
+├── Navbar
+├── Home
+└── Footer
+
+When state changes:
+
+React creates NEW virtual tree
+compares with OLD tree
+finds differences
+updates real DOM minimally
+
+This comparison is reconciliation.
+
+What is "Diffing"?
+
+Diffing means:
+
+finding differences
+
+Example:
+
+OLD:
+
+<li>A</li>
+<li>B</li>
+
+NEW:
+
+<li>A</li>
+<li>C</li>
+
+React detects:
+
+B changed to C
+
+Only updates that item.
+
+What is Update?
+
+Update means:
+
+change in data/state/props
+
+Usually from:
+
+setState()
+
+or
+
+setCount()
+
+Update → Re-render → Reconciliation → DOM update
+
+Important Line
+
+"React thinks as if whole app re-renders"
+
+This means:
+
+React behaves like:
+
+"Let's rebuild everything again"
+
+BUT internally React is smart.
+
+It actually updates only changed parts.
+
+So developers can write simple code without worrying about performance.

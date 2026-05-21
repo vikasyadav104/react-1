@@ -1,0 +1,59 @@
+React Fiber is an ongoing reimplementation of React's core algorithm. It is the culmination of over two years of research by the React team.
+
+The goal of React Fiber is to increase its suitability for areas like animation, layout, and gestures. Its headline feature is incremental rendering: the ability to split rendering work into chunks and spread it out over multiple frames.
+
+Other key features include the ability to pause, abort, or reuse work as new updates come in; the ability to assign priority to different types of updates; and new concurrency primitives. 
+
+
+//explaination of above paragraph
+
+React Fiber is the new internal engine (core algorithm) of React that controls:
+
+how React updates the UI
+when rendering happens
+which updates are more important
+how rendering can be paused/resumed
+
+Before Fiber, React used a simpler recursive rendering process that worked synchronously.
+
+
+Problem Before Fiber
+
+Old React rendering worked like this:
+
+Old React Flow:
+
+Update starts
+      ↓
+React renders whole component tree
+      ↓
+Browser gets control
+
+While React was rendering:
+
+browser could not do other work
+animations could lag
+scrolling could freeze
+typing could feel slow
+
+Because rendering was:
+
+synchronous
+
+meaning:
+
+once started
+React must finish everything before stopping
+
+What Fiber Introduced
+
+Fiber changed React rendering into:
+
+interruptible rendering
+
+React can now:
+
+pause work
+continue later
+prioritize important updates
+split big work into small chunks
