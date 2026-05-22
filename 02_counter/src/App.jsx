@@ -8,13 +8,13 @@ function App() {
 
   // let counter=15
 // one important thing is react is react on changing the ui so when we change the value of counter it will not re-render the component because react does not know that we have changed the value of counter so we need to use state to re-render the component when we change the value of counter
-  let [counter,vikas]=useState(15) // this is how we can use state in react and it will re-render the component when we change the value of counter and it will also update the value of counter in the user interface
+  let [counter,setCounter]=useState(15) // this is how we can use state in react and it will re-render the component when we change the value of counter and it will also update the value of counter in the user interface
 
   const addvalue=()=>{
     // console.log("add value",Math.random()); // it is just for check that our function is working or not
     console.log("add value",counter); // it is just for check that our function is working or not 
     counter=counter+1;
-    vikas(counter); // this is how we can chnage the value of counter in user interface and it will re-render the component when we change the value of counter
+    setCounter(counter); // this is how we can chnage the value of counter in user interface and it will re-render the component when we change the value of counter
 
   }
   const removevalue=()=>{
@@ -22,7 +22,7 @@ function App() {
     if(counter<0){
       counter=0;
     }
-    vikas(counter); // this is how we can chnage the value of counter in user interface and it will re-render the component when we change the value of counter
+    setCounter(counter); // this is how we can chnage the value of counter in user interface and it will re-render the component when we change the value of counter
   }
   return(
         <>
